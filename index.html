@@ -12,6 +12,7 @@
   <title>Accent Survival | Free Online Accent Guessing Game</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
+  <link rel='shortcut icon' type='image/x-icon' href='assets/accentgame.ico' />
 </head>
 <body>
   <div id="App">
@@ -30,10 +31,9 @@
     <!-- start of form -->
 
     <form id="starter-form">
-      <div class="form-line button button-orange">
+      <div containerFor="numberOfPlayers" class="form-line button button-orange">
         <label for="numberOfPlayers">Players: </label>
         <select name="numberOfPlayers" id="numberOfPlayers" class="border-none">
-          <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
@@ -46,12 +46,12 @@
         </select>
       </div>
 
-      <div class="form-line button button-red">
+      <div containerFor="numberOfLives" class="form-line button button-red">
         <label for="numberOfLives">Lives: </label>
         <select name="numberOfLives" id="numberOfLives" class="border-none">
-          <option value="2">3</option>
-          <option value="2">4</option>
-          <option value="2">5</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
       </div>
 
@@ -61,6 +61,6 @@
     <!-- end of form -->
 
   </div>
-<script src="script.js" charset="utf-8"></script>
+  <script src="script.js" charset="utf-8"></script>
 </body>
 </html>

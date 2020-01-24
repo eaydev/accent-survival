@@ -20,7 +20,7 @@ body{
   flex-direction: column;
 }
 .brand-logo{
-  width: 30%;
+  width: 25vh;
 }
 .starter-hero{
 }
@@ -76,4 +76,13 @@ body{
 }
 .button-green{
   background: #52FF82;
+}
+
+@media only screen and (max-width: 768px){
+  .form-line{
+    width: 100%;
+  }
+  #starter-form{
+    width: 60%;
+  }
 }
