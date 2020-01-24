@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Accent Survival is a game where individuals fight to stay in the game
+                                    by correctly imitating accents. Individuals have 30 seconds to read out
+                                    a quote in a selected accent, their co-players must then guess correctly. Failure
+                                    to do so will result in the player, imitating the accent to lose a life.">
+
+  <title>Accent Survival | Free Online Accent Guessing Game</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div id="App">
+    <!-- Start of hero -->
+
+    <div class="starter-hero">
+      <img class="brand-logo" src="assets/communication.svg" alt="Accent Survival Logo: An arrow piercing two speech bubbles.">
+      <div class="starter-hero-header black text-white">
+        <h1>Accent Survival</h1>
+      </div>
+      <p class="text-white sub-text">The accent guessing survival game.</p>
+    </div>
+
+    <!-- end of hero -->
+
+    <!-- start of form -->
+
+    <form id="starter-form">
+      <div class="form-line button button-orange">
+        <label for="numberOfPlayers">Players: </label>
+        <select name="numberOfPlayers" id="numberOfPlayers" class="border-none">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+
+      <div class="form-line button button-red">
+        <label for="numberOfLives">Lives: </label>
+        <select name="numberOfLives" id="numberOfLives" class="border-none">
+          <option value="2">3</option>
+          <option value="2">4</option>
+          <option value="2">5</option>
+        </select>
+      </div>
+
+      <button class="button button-large button-green">Start</button>
+    </form>
+
+    <!-- end of form -->
+
+  </div>
+<script src="script.js" charset="utf-8"></script>
+</body>
+</html>
