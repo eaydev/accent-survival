@@ -30,6 +30,12 @@ body{
 .black{
   font-weight: 900;
 }
+.semi-bold{
+  font-weight: 600;
+}
+.underline{
+  text-decoration: underline;
+}
 .text-white{
   color: white;
 }
@@ -77,8 +83,20 @@ body{
 .button-green{
   background: #52FF82;
 }
+.intermediary-header{
+  width: 90vw;
+}
 
 @media only screen and (max-width: 768px){
+  .brand-logo{
+    width: 30vw;
+  }
+  .starter-hero-header{
+    font-size: 33px;
+  }
+  .sub-text{
+    font-size: 12px;
+  }
   .form-line{
     width: 100%;
   }
