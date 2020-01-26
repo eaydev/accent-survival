@@ -91,6 +91,33 @@ body{
   justify-content: center;
   align-items: center;
 }
+.count-header{
+  font-size: 200px;
+}
+
+/* Animation for numbers */
+.count-anim{
+  position: relative;
+  animation: float-up linear 1200ms;
+}
+@keyframes float-up{
+  0%{
+    opacity: 0;
+    bottom: -100px;
+  }
+  30%{
+    opacity: 1;
+    bottom: 0px;
+  }
+  70%{
+    opacity: 1;
+    bottom: 0px;
+  }
+  100%{
+    opacity: 0;
+    bottom: 100px;
+  }
+}
 
 @media only screen and (max-width: 768px){
   .brand-logo{
@@ -107,5 +134,8 @@ body{
   }
   #starter-form{
     width: 60%;
+  }
+  .count-header{
+    font-size: 30vw;
   }
 }

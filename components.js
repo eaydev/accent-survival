@@ -66,3 +66,22 @@ const starterScreen = {
     })
   }
 }
+
+
+const intermediaryScreen = {
+  preRender : function(){
+    return
+    `<div class="intermediary-header">
+      <h1 id="playerDisplay" class="starter-hero-header text-white black" style="padding-bottom: 20px; letter-spacing: 0.035em;">
+        Player 1
+      </h1>
+      <p class="semi-bold text-white underline">Lives: <span id="playerLife">2</span></p>
+    </div>
+    <button class="button button-large button-orange">Let's go</button>`;
+  },
+  postRender : function(){
+    //Pull data from Object to be displayed in DOM
+      document.getElementById('playerDisplay').innerHTML = gameplay.currentPlayer;
+      document.getElementById('playerLife').innerHTML = gameplay.getCurrentLife();
+  }
+}

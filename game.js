@@ -22,12 +22,28 @@ let gameplay = {
   }
 }
 
-function initPlayer(){
-    // console.log("Ready");
+let countDown;
+let currentNumber = 3;
+//Upon loading this count-down page we will initiate the animation starter
+function iterateCount(){
+  if(currentNumber === 0){
+    stopIterate();
+    console.log('STOPPED!');
+    return document.getElementById('App').innerHTML =
+    ``;
+  }
+  document.getElementById('App').innerHTML =
+  `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
+  currentNumber--;
 }
 
-//Pull data from Object to be displayed in DOM
+function stopIterate(){
+  clearInterval(countDown);
+}
+
 (function(){
-  document.getElementById('playerDisplay').innerHTML = gameplay.currentPlayer;
-  document.getElementById('playerLife').innerHTML = gameplay.getCurrentLife();
-})()
+  document.getElementById('App').innerHTML =
+  `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
+  currentNumber--;
+  countDown = setInterval(iterateCount, 1200);
+})();
