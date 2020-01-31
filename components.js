@@ -85,3 +85,41 @@ const intermediaryScreen = {
       document.getElementById('playerLife').innerHTML = gameplay.getCurrentLife();
   }
 }
+
+const countDownScreen = {
+  preRender : function(){
+    return
+      `    <h1 id="count" class="black count-header text-white count-anim">3</h1>`
+  },
+  postRender : function(){
+    let countDown;
+    let currentNumber = 3;
+
+    //Function that facilitates DOM appearance and quote retreival for countdown
+    function iterateCount(){
+      if(currentNumber === 0){
+        stopIterate();
+        return document.getElementById('App').innerHTML =
+        `<div class="loader"></div>`;
+      }
+      document.getElementById('App').innerHTML =
+      `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
+      currentNumber--;
+    }
+    //Clear Interval for Counter
+    function stopIterate(){
+      clearInterval(countDown);
+    }
+
+    //Upon loading this count-down page we will initiate the animation starter
+    (function(){
+      gameplay.getQuote();
+      document.getElementById('App').innerHTML =
+      `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
+      currentNumber--;
+      //Start the counter in the called variable so can call
+      countDown = setInterval(iterateCount, 1200);
+
+    })();
+  }
+}

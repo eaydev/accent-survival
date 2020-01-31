@@ -119,6 +119,11 @@ body{
   }
 }
 
+#quote{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
@@ -133,8 +138,24 @@ body{
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.quote-card-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.quote-card{
+  width: 70%;
+  padding: 20px;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
 
 @media only screen and (max-width: 768px){
+  #App{
+    width: 95%;
+  }
   .brand-logo{
     width: 30vw;
   }
@@ -152,5 +173,8 @@ body{
   }
   .count-header{
     font-size: 30vw;
+  }
+  .quote-card{
+    width: 85%;
   }
 }

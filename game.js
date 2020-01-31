@@ -6,7 +6,6 @@ let gameplay = {
   players: {
     'Player 1' : {Lives: 3},
     'Player 2' : {Lives: 1}
-
   },
   //Current Player of the Game.
   currentPlayer : 'Player 2',
@@ -38,42 +37,53 @@ let gameplay = {
     let quoteRequest = new XMLHttpRequest();
       quoteRequest.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
+           console.log(category);
            let quote = JSON.parse(quoteRequest.responseText);
-           this.quote = (quote['contents']['quotes'][0]['quote']);
-           console.log(this.quote);
-        }
+           gameplay.quote = '"' + (quote['contents']['quotes'][0]['quote']) + '"';
+           console.log(gameplay.quote.length);
+              }
     };
     quoteRequest.open("GET", `http://quotes.rest/qod.json?category=${category}`, true);
     quoteRequest.send();
-      }
-}
+  },
+  getAccent : function(){
+    const accents = [
+      'Asian',
+      'Italian',
+      'Eastern European',
+      'Swedish',
+      'Irish',
+      'Italian NYC gangster',
+      'Indian',
+      'Kiwi',
+      'Korean',
+      'British',
+      'Australian',
+      'American',
+      'Canadian',
+      'Glaswegian',
+      'Welsh',
+      'French'];
 
-let countDown;
-let currentNumber = 3;
+    return accents[Math.floor(Math.random() * accents.length)].toUpperCase();
+    // console.log(accents[Math.floor(Math.random() * accents.length)].toUpperCase());
 
-//Function that facilitates DOM appearance and quote retreival for countdown
-function iterateCount(){
-  if(currentNumber === 0){
-    stopIterate();
-    return document.getElementById('App').innerHTML =
-    `<div class="loader"></div>`;
   }
-  document.getElementById('App').innerHTML =
-  `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
-  currentNumber--;
-}
-//Clear Interval for Counter
-function stopIterate(){
-  clearInterval(countDown);
 }
 
-//Upon loading this count-down page we will initiate the animation starter
-(function(){
-  gameplay.getQuote();
-  document.getElementById('App').innerHTML =
-  `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
-  currentNumber--;
-  //Start the counter in the called variable so can call
-  countDown = setInterval(iterateCount, 1200);
+//Main portion logic.
 
-})();
+gameplay.getQuote();
+setTimeout(function(){
+  document.getElementById("playerID").innerHTML = gameplay.currentPlayer;
+  //Controlling style for quote card regarding character length.
+  if (gameplay.quote.length >= 85) {
+    document.getElementById("quote").style.fontSize = "20px";
+  } else if (gameplay.quote.length >= 250){
+    document.getElementById("quote").style.fontSize = "25px";
+  }
+  document.getElementById("quote").innerHTML = gameplay.quote;
+  document.getElementById("accent").innerHTML = gameplay.getAccent();
+}, 3000)
+
+//Timer Logic
