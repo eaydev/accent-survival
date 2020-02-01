@@ -3,12 +3,9 @@
 let gameplay = {
   quote : "",
   //Player Stats Defined.
-  players: {
-    'Player 1' : {Lives: 3},
-    'Player 2' : {Lives: 1}
-  },
+  players: {},
   //Current Player of the Game.
-  currentPlayer : 'Player 2',
+  currentPlayer : '',
   // Method to initialise the player and player data
   createPlayers: function(arr){
     for (let i = 0; i < arr[0]; i++) {
@@ -18,7 +15,7 @@ let gameplay = {
   },
   //Method to get the current player's life.
   getCurrentLife : function(){
-    return this.players[this.currentPlayer].Lives;
+    return gameplay.players[gameplay.currentPlayer].Lives;
   },
   //Method to get quote and store into game
   getQuote : function(){
@@ -37,10 +34,8 @@ let gameplay = {
     let quoteRequest = new XMLHttpRequest();
       quoteRequest.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-           console.log(category);
            let quote = JSON.parse(quoteRequest.responseText);
            gameplay.quote = '"' + (quote['contents']['quotes'][0]['quote']) + '"';
-           console.log(gameplay.quote.length);
               }
     };
     quoteRequest.open("GET", `http://quotes.rest/qod.json?category=${category}`, true);

@@ -16,10 +16,21 @@
 </head>
 <body>
   <div id="App">
-
   </div>
+
   <script src="components.js" charset="utf-8"></script>
   <script src="game.js" charset="utf-8"></script>
+  <script>
+  // Initiate the routing system.
+  window.addEventListener('hashchange', function() {
+    render(eval(location.hash.slice(1, location.hash.length)));
+  }, false);
+  //Initiate game
+  (function(){
+    render(starterScreen);
+  })()
 
+  // render(starterScreen);
+  </script>
 </body>
 </html>

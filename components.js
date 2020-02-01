@@ -1,6 +1,6 @@
-function render(screen){
-  document.getElementById("App").innerHTML = screen.preRender;
-  screen.postRender();
+async function render(screen){
+    document.getElementById("App").innerHTML = await screen.preRender;
+    await screen.postRender();
 }
 
 class Screen {
@@ -9,7 +9,6 @@ class Screen {
     this.postRender = postRender;
   }
 }
-
 
 const starterScreen = new Screen (
   `<!-- Start of hero -->
@@ -51,7 +50,7 @@ const starterScreen = new Screen (
       </select>
     </div>
 
-    <button class="button button-large button-green">Start</button>
+    <a href="#readyScreen" class="button button-large button-green">Start</a>
   </form>
 
   <!-- end of form -->`,
@@ -62,11 +61,10 @@ const starterScreen = new Screen (
       //Start of submit processing block
       if(e.target.classList.contains("button-green")){
         //Check if submit button
-        e.preventDefault();
         let playerData = [];
 
         //Grab data and add to playerData array
-        for (let i = 0; i < e.target.parentNode.elements.length - 1; i++) {
+        for (let i = 0; i < e.target.parentNode.elements.length; i++) {
           playerData.push(parseInt(e.target.parentNode.elements[i].value));
         }
         //Pushing data into our state manager.
@@ -81,11 +79,10 @@ const starterScreen = new Screen (
 const readyScreen = new Screen(
   `<div class="intermediary-header">
     <h1 id="playerDisplay" class="starter-hero-header text-white black" style="padding-bottom: 20px; letter-spacing: 0.035em;">
-      Player 1
     </h1>
-    <p class="semi-bold text-white underline">Lives: <span id="playerLife">2</span></p>
+    <p class="semi-bold text-white underline">Lives: <span id="playerLife"></span></p>
   </div>
-  <button class="button button-large button-orange">Let's go</button>`,
+  <a href="#countDownScreen" class="button button-large button-orange text-white">Let's go</a>`,
 
   function(){
     //Pull data from Object to be displayed in DOM
@@ -105,8 +102,8 @@ const countDownScreen = new Screen(
     function iterateCount(){
       if(currentNumber === 0){
         stopIterate();
-        return document.getElementById('App').innerHTML =
-        `<div class="loader"></div>`;
+        document.getElementById('App').innerHTML =`<div class="loader"></div>`;
+        return window.location.hash = "quoteScreen";
       }
       document.getElementById('App').innerHTML =
       `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
@@ -132,7 +129,7 @@ const countDownScreen = new Screen(
 
 
 const quoteScreen = new Screen(
-  `<h1 id="playerID" class="semi-bold text-white" style="letter-spacing: 0.035em;">Player 2</h1>
+  `<h2 id="playerID" class="semi-bold text-white" style="letter-spacing: 0.035em;"></h2>
   <!-- Quote Card container -->
   <div class="quote-card-container">
     <div class="quote-card">
@@ -168,7 +165,7 @@ const quoteScreen = new Screen(
     document.getElementById("accent").innerHTML = gameplay.getAccent();
 
       //Timer module
-    let time = 5;
+    let time = 31;
 
     function timer(){
       if (time === 0) {
