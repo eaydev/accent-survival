@@ -68,7 +68,7 @@ const starterScreen = {
 }
 
 
-const intermediaryScreen = {
+const readyScreen = {
   preRender : function(){
     return
     `<div class="intermediary-header">
@@ -121,5 +121,63 @@ const countDownScreen = {
       countDown = setInterval(iterateCount, 1200);
 
     })();
+  }
+}
+
+const quoteScreen = {
+  preRender : function(){
+    const template =
+    `<h1 id="playerID" class="semi-bold text-white" style="letter-spacing: 0.035em;">Player 2</h1>
+    <!-- Quote Card container -->
+    <div class="quote-card-container">
+      <div class="quote-card">
+        <h1 id="quote">
+          <div class="loader"></div>
+        </h1>
+      </div>
+      <span style="margin-top: 5px; z-index:50;font-size:0.9em; opacity: 0.7; transform: scale(0.8)"><img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com"/><a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com" style="color: #9fcc25; margin-left: 4px; vertical-align: middle;">theysaidso.com</a></span>
+
+      <div class="accent-container text-white" style="margin-top: 20px;">
+        <h2 style="text-decoration:underline" class="semi-bold">Accent</h2>
+        <h1 id="accent" class="black starter-hero-header">Picking...</h1>
+      </div>
+    </div>
+    <!-- Accent container -->
+
+
+    <div class="">
+      <div class="text-white">TIME(s): <span id="timer">30</span></div>
+      <button class="button button-red button-large text-white">GUESSED!</button>
+    </div>`;
+
+    return template;
+    ;
+  },
+  postRender : function(){
+      //Pasting Values into DOM
+    document.getElementById("playerID").innerHTML = gameplay.currentPlayer;
+      //Controlling style for quote card regarding character length.
+    if (gameplay.quote.length >= 85) {
+      document.getElementById("quote").style.fontSize = "20px";
+    } else if (gameplay.quote.length >= 250){
+      document.getElementById("quote").style.fontSize = "25px";
+    }
+    document.getElementById("quote").innerHTML = gameplay.quote;
+    document.getElementById("accent").innerHTML = gameplay.getAccent();
+
+      //Timer module
+    let time = 5;
+    
+    function timer(){
+      if (time === 0) {
+        console.log("OUT OF TIME NIGGUH!");
+        return clearInterval(countDown);
+      }
+      time--;
+      document.getElementById("timer").innerHTML = time;
+    }
+
+    timer();
+    let countDown = setInterval(timer, 1000);
   }
 }
