@@ -149,7 +149,7 @@ const quoteScreen = new Screen(
 
   <div class="">
     <div class="text-white">TIME(s): <span id="timer">30</span></div>
-    <button class="button button-red button-large text-white">GUESSED!</button>
+    <button class="button button-red button-large text-white" id="guessButton">GUESSED!</button>
   </div>`,
 
   function(){
@@ -161,16 +161,35 @@ const quoteScreen = new Screen(
     } else if (gameplay.quote.length >= 250){
       document.getElementById("quote").style.fontSize = "25px";
     }
+      // Setting data into DOM
     document.getElementById("quote").innerHTML = gameplay.quote;
     document.getElementById("accent").innerHTML = gameplay.getAccent();
+      // Adding Functionality to Guessed button
+    document.getElementById("guessButton").addEventListener('click', function(){
+      gameplay.guessed = !gameplay.guessed;
+      playerPass();
+    });
+
+    function playerPass(){
+        clearInterval(countDown);
+        time = 0;
+        document.getElementById("timer").innerHTML = time;
+        gameplay.lifeCalc();
+        if (gameplay.guessed) {
+          console.log('WAS RIGHT');
+          gameplay.guessed = !gameplay.guessed;
+        }
+        gameplay.playerSwitch();
+        render(readyScreen);
+    }
+
 
       //Timer module
     let time = 31;
 
     function timer(){
       if (time === 0) {
-        console.log("OUT OF TIME NIGGUH!");
-        return clearInterval(countDown);
+        playerPass();
       }
       time--;
       document.getElementById("timer").innerHTML = time;

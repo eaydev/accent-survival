@@ -1,6 +1,9 @@
 // Gameplay object which will manage our data and associate functions with said data
 
 let gameplay = {
+  // State of guess
+  guessed : false,
+  //Quote retreived from API
   quote : "",
   //Player Stats Defined.
   players: {},
@@ -61,7 +64,21 @@ let gameplay = {
       'French'];
 
     return accents[Math.floor(Math.random() * accents.length)].toUpperCase();
-    // console.log(accents[Math.floor(Math.random() * accents.length)].toUpperCase());
+  },
+  lifeCalc : function(){
+    //If not guessed.
+    if (!this.guessed) {
+      this.players[this.currentPlayer].Lives = this.players[this.currentPlayer].Lives - 1;
+    }
+  },
+  playerSwitch : function(){
+    let player = (this.currentPlayer).split(' ');
+    if (parseInt(player[1]) === (Object.keys(this.players).length)){
+      player[1] = 1;
+    } else {
+      player[1] = parseInt(player[1]) + 1;
+    }
 
+    this.currentPlayer = player.join(" ");
   }
 }
