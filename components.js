@@ -1,6 +1,6 @@
-async function render(screen){
-    document.getElementById("App").innerHTML = await screen.preRender;
-    await screen.postRender();
+function render(screen){
+    document.getElementById("App").innerHTML = screen.preRender;
+    screen.postRender();
 }
 
 class Screen {
@@ -46,7 +46,7 @@ const starterScreen = new Screen (
       <select name="numberOfLives" id="numberOfLives" class="border-none">
         <option value="3">3</option>
         <option value="4">4</option>
-        <option value="5">5</option>
+        <option value="1">1</option>
       </select>
     </div>
 
@@ -88,6 +88,17 @@ const readyScreen = new Screen(
     //Pull data from Object to be displayed in DOM
       document.getElementById('playerDisplay').innerHTML = gameplay.currentPlayer;
       document.getElementById('playerLife').innerHTML = gameplay.getCurrentLife();
+  }
+)
+
+const victorScreen = new Screen(
+  `<div class="intermediary-header">
+    <h1 id="accent" class="black starter-hero-header" style="color: #F0C020">VICTOR</h1>
+    <h1 id="playerDisplay" class="starter-hero-header text-white black" style="padding-bottom: 20px; letter-spacing: 0.035em;">
+    </h1>
+  </div>`,
+  function(){
+    document.getElementById('playerDisplay').innerHTML = gameplay.currentPlayer;
   }
 )
 
@@ -153,6 +164,27 @@ const quoteScreen = new Screen(
   </div>`,
 
   function(){
+
+    //Function to distinguish outcome between guessed and not guessed.
+
+    async function playerPass(){
+        await clearInterval(countDown);
+        time = 0;
+        document.getElementById("timer").innerHTML = await time;
+        gameplay.lifeCalc();
+        if (gameplay.guessed) {
+          gameplay.guessed = !gameplay.guessed;
+        }
+        gameplay.playerOut();
+        //Check if Victor!
+        if (Object.keys(gameplay.players).length === 1) {
+          gameplay.currentPlayer = Object.keys(gameplay.players)[0];
+          render(victorScreen);
+        } else {
+          gameplay.playerSwitch();
+          render(readyScreen);
+        }
+    }
       //Pasting Values into DOM
     document.getElementById("playerID").innerHTML = gameplay.currentPlayer;
       //Controlling style for quote card regarding character length.
@@ -170,22 +202,9 @@ const quoteScreen = new Screen(
       playerPass();
     });
 
-    function playerPass(){
-        clearInterval(countDown);
-        time = 0;
-        document.getElementById("timer").innerHTML = time;
-        gameplay.lifeCalc();
-        if (gameplay.guessed) {
-          console.log('WAS RIGHT');
-          gameplay.guessed = !gameplay.guessed;
-        }
-        gameplay.playerSwitch();
-        render(readyScreen);
-    }
-
 
       //Timer module
-    let time = 31;
+    let time = 2;
 
     function timer(){
       if (time === 0) {

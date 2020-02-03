@@ -6,7 +6,10 @@ let gameplay = {
   //Quote retreived from API
   quote : "",
   //Player Stats Defined.
-  players: {},
+  players: {"Player 1": {Lives: 3},
+            "Player 2": {Lives : 0}
+
+           },
   //Current Player of the Game.
   currentPlayer : '',
   // Method to initialise the player and player data
@@ -80,5 +83,18 @@ let gameplay = {
     }
 
     this.currentPlayer = player.join(" ");
+  },
+  playerOut : function(){
+    let players = Object.keys(this.players);
+    let newPlayers = {};
+
+    // gameplay.players[player]["Lives"]
+    players.forEach((player) =>{
+      if (gameplay.players[player]["Lives"] !== 0) {
+        newPlayers[player] = {"Lives" : gameplay.players[player]["Lives"]};
+      }
+      }
+     )
+     gameplay.players = newPlayers;
   }
 }
