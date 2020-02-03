@@ -46,7 +46,7 @@ const starterScreen = new Screen (
       <select name="numberOfLives" id="numberOfLives" class="border-none">
         <option value="3">3</option>
         <option value="4">4</option>
-        <option value="1">1</option>
+        <option value="5">5</option>
       </select>
     </div>
 
@@ -204,7 +204,7 @@ const quoteScreen = new Screen(
 
 
       //Timer module
-    let time = 2;
+    let time = 31;
 
     function timer(){
       if (time === 0) {
