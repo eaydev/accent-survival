@@ -120,6 +120,39 @@ body{
     bottom: 100px;
   }
 }
+/* Animation for float up */
+
+.entry{
+  position: relative;
+  animation: entryAnim linear 400ms;
+}
+
+@keyframes entryAnim{
+  0%{
+    opacity: 0;
+    top: -100px;
+  }
+  100%{
+    opacity: 1;
+    top: 0px;
+  }
+}
+
+.fadeIn{
+  animation: fadeIn linear 300ms;
+}
+
+
+@keyframes fadeIn{
+  0%{
+    opacity: 0;
+  }
+  100%{
+    opacity: 1;
+  }
+}
+
+
 
 #quote{
   display: flex;

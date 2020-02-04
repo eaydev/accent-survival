@@ -14,18 +14,18 @@ const starterScreen = new Screen (
   `<!-- Start of hero -->
 
   <div class="starter-hero">
-    <img class="brand-logo" src="assets/communication.svg" alt="Accent Survival Logo: An arrow piercing two speech bubbles.">
-    <div class="starter-hero-header black text-white">
+    <img class="brand-logo entry" src="assets/communication.svg" alt="Accent Survival Logo: An arrow piercing two speech bubbles.">
+    <div class="starter-hero-header black text-white entry">
       <h1>Accent Survival</h1>
     </div>
-    <p class="text-white sub-text">The accent guessing survival game.</p>
+    <p class="text-white sub-text entry">The accent guessing survival game.</p>
   </div>
 
   <!-- end of hero -->
 
   <!-- start of form -->
 
-  <form id="starter-form">
+  <form id="starter-form" class="fadeIn">
     <div containerFor="numberOfPlayers" class="form-line button button-orange">
       <label for="numberOfPlayers">Players: </label>
       <select name="numberOfPlayers" id="numberOfPlayers" class="border-none">
@@ -41,7 +41,7 @@ const starterScreen = new Screen (
       </select>
     </div>
 
-    <div containerFor="numberOfLives" class="form-line button button-red">
+    <div containerFor="numberOfLives" class="form-line button button-red fadeIn">
       <label for="numberOfLives">Lives: </label>
       <select name="numberOfLives" id="numberOfLives" class="border-none">
         <option value="3">3</option>
@@ -50,7 +50,7 @@ const starterScreen = new Screen (
       </select>
     </div>
 
-    <a href="#readyScreen" class="button button-large button-green">Start</a>
+    <a href="#readyScreen" class="button button-large button-green fadeIn">Start</a>
   </form>
 
   <!-- end of form -->`,
