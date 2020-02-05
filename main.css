@@ -152,6 +152,19 @@ body{
   }
 }
 
+.fadeOut{
+  animation: fadeIn linear 600ms;
+}
+
+
+@keyframes fadeIn{
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
 
 
 #quote{
@@ -212,4 +225,9 @@ body{
   .quote-card{
     width: 85%;
   }
+}
+
+
+.none{
+  display: none !important;
 }

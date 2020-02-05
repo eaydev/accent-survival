@@ -25,7 +25,7 @@ const starterScreen = new Screen (
 
   <!-- start of form -->
 
-  <form id="starter-form" class="fadeIn">
+  <form id="starter-form">
     <div containerFor="numberOfPlayers" class="form-line button button-orange">
       <label for="numberOfPlayers">Players: </label>
       <select name="numberOfPlayers" id="numberOfPlayers" class="border-none">
@@ -41,7 +41,7 @@ const starterScreen = new Screen (
       </select>
     </div>
 
-    <div containerFor="numberOfLives" class="form-line button button-red fadeIn">
+    <div containerFor="numberOfLives" class="form-line button button-red">
       <label for="numberOfLives">Lives: </label>
       <select name="numberOfLives" id="numberOfLives" class="border-none">
         <option value="3">3</option>
@@ -50,7 +50,7 @@ const starterScreen = new Screen (
       </select>
     </div>
 
-    <a href="#readyScreen" class="button button-large button-green fadeIn">Start</a>
+    <a href="#readyScreen" class="button button-large button-green">Start</a>
   </form>
 
   <!-- end of form -->`,

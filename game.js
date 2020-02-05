@@ -1,6 +1,7 @@
 // Gameplay object which will manage our data and associate functions with said data
 
 let gameplay = {
+  view: "",
   // State of guess
   guessed : false,
   //Quote retreived from API
