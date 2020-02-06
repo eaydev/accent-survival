@@ -48,11 +48,9 @@
 
   function fadeIn(){
     let container = document.getElementById("App");
+    container.classList.remove("fadeOut");
     container.classList.add("fadeIn");
-    setTimeout(function(){
-      container.classList.remove("fadeOut");
-      container.classList.remove("none");
-    }, 600)
+    container.classList.remove("none");
   }
   </script>
 </body>

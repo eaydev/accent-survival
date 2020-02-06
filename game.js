@@ -37,16 +37,31 @@ let gameplay = {
       'students'];
     let category = categories[(Math.floor(Math.random() * categories.length))];
 
-    //Create API Request
-    let quoteRequest = new XMLHttpRequest();
-      quoteRequest.onreadystatechange = function() {
+    let quoteReq =  new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", `http://quotes.rest/qod.json?category=${category}`, true);
+      xhr.onload = function(){
         if (this.readyState == 4 && this.status == 200) {
-           let quote = JSON.parse(quoteRequest.responseText);
-           gameplay.quote = '"' + (quote['contents']['quotes'][0]['quote']) + '"';
-              }
-    };
-    quoteRequest.open("GET", `http://quotes.rest/qod.json?category=${category}`, true);
-    quoteRequest.send();
+          resolve(xhr.responseText);
+        } else {
+          reject("Error in accessing API.");
+        }
+      }
+
+      xhr.onerror = function(){
+        reject("Could not reach server.")
+      }
+      xhr.send();
+    }) //End of Promise.
+
+    quoteReq.then(
+      (res) => {
+        let newQuote = JSON.parse(res);
+        gameplay.quote = '"' + (newQuote['contents']['quotes'][0]['quote']) + '"';
+      },
+      (err) => console.log(err)
+    );
+
   },
   getAccent : function(){
     const accents = [

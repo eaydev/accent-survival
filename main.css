@@ -10,6 +10,7 @@ body{
 }
 
 #App{
+  transition: all 0.4s linear;
   margin: auto;
   height: 100%;
   width: 40%;
