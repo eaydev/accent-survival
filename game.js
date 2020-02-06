@@ -56,11 +56,12 @@ let gameplay = {
 
     quoteReq.then(
       (res) => {
-        let newQuote = JSON.parse(res);
-        gameplay.quote = '"' + (newQuote['contents']['quotes'][0]['quote']) + '"';
+        return new Promise((resolve, reject) => {
+          resolve(newQuote = JSON.parse(res));
+        })
       },
       (err) => console.log(err)
-    );
+    ).then((newQuote)=> gameplay.quote = '"' + (newQuote['contents']['quotes'][0]['quote']) + '"');
 
   },
   getAccent : function(){
