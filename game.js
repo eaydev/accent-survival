@@ -37,7 +37,7 @@ let gameplay = {
       'students'];
     let category = categories[(Math.floor(Math.random() * categories.length))];
 
-    fetch(`http://quotes.rest/qod.json?category=${category}`)
+    fetch(`https://quotes.rest/qod.json?category=${category}`)
       .then((res)=>res.json())
       .then((data)=> {
         return new Promise((resolve, reject) =>{
