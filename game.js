@@ -37,15 +37,8 @@ let gameplay = {
       'students'];
     let category = categories[(Math.floor(Math.random() * categories.length))];
 
-    fetch(`https://quotes.rest/qod.json?category=${category}`)
-      .then((res)=>res.json())
-      .then((data)=> {
-        return new Promise((resolve, reject) =>{
-          gameplay.quote = '"' + (data['contents']['quotes'][0]['quote']) + '"'
-          resolve("Quote state successfully updated.");
-        })
-      })
-      .then(res=>console.log(res));
+    return fetch(`https://quotes.rest/qod.json?category=${category}`);
+
 
     // let quoteReq =  new Promise((resolve, reject) => {
     //   let xhr = new XMLHttpRequest();

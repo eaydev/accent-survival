@@ -109,32 +109,50 @@ const countDownScreen = new Screen(
     let countDown;
     let currentNumber = 3;
 
-    //Function that facilitates DOM appearance and quote retreival for countdown
-    function iterateCount(){
-      if(currentNumber === 0){
-        stopIterate();
-        document.getElementById('App').innerHTML =`<div class="loader"></div>`;
-        return window.location.hash = "quoteScreen";
-      }
-      document.getElementById('App').innerHTML =
-      `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
-      currentNumber--;
-    }
-    //Clear Interval for Counter
+    //CountDown Controls
     function stopIterate(){
       clearInterval(countDown);
     }
 
-    //Upon loading this count-down page we will initiate the animation starter
-    (function(){
-      gameplay.getQuote();
-      document.getElementById('App').innerHTML =
-      `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
-      currentNumber--;
-      //Start the counter in the called variable so can call
-      countDown = setInterval(iterateCount, 1200);
+    //Countdown takes form of promise which resolves upon reaching 0.
+    let counter = new Promise((resolve, reject) =>{
+      function iterateCount(){
+        if(currentNumber === 0){
+          stopIterate();
+          resolve("Countdown has finished.")
+          return document.getElementById('App').innerHTML =`<div class="loader"></div>`;
+        }
+        document.getElementById('App').innerHTML =
+        `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
+        currentNumber--;
+      }
 
-    })();
+      document.getElementById('App').innerHTML = `<h1 id="count" class="black count-header text-white count-anim">${currentNumber}</h1>`;
+      countDown = setInterval(iterateCount, 1200);
+      currentNumber--;
+    }
+    )
+
+    //Quote returns a fetch request, which returns a promise.
+    let quoteCall = gameplay.getQuote();
+
+    //Require the completion of both async events to progress.
+    //The countdown && the request to ensure quote is there and countdown serves it's purpose.
+    Promise.all([counter, quoteCall])
+    .then((responses)=>{
+      //Response 1 is coming from the quote call.
+      responses[1].json()
+      .then((data) => {
+        gameplay.quote = '"' + (data['contents']['quotes'][0]['quote']) + '"';
+      })
+      .then(() => {
+        window.location.hash = "quoteScreen";
+      })
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
   }
 );
 
