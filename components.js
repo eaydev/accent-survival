@@ -179,10 +179,10 @@ const quoteScreen = new Screen(
         //Check if Victor!
         if (Object.keys(gameplay.players).length === 1) {
           gameplay.currentPlayer = Object.keys(gameplay.players)[0];
-          render(victorScreen);
-        } else {
+          return window.location.hash = "victorScreen";
+          } else {
           gameplay.playerSwitch();
-          render(readyScreen);
+          return window.location.hash = "readyScreen";
         }
     }
       //Pasting Values into DOM

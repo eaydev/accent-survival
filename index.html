@@ -15,9 +15,8 @@
   <link rel='shortcut icon' type='image/x-icon' href='assets/accentgame.ico' />
 </head>
 <body>
-  <div class="tester" style="background: red; opacity 0.7; padding: 20px; position: fixed;">
-    <button id="tester" onclick="test()">Test</button>
-    <button onclick="fadeIn()">tester2</button>
+  <div class="tester" style="background: red; opacity 0.7; padding: 20px; position: fixed; z-index: 9999;">
+    <button style="background: yellow; margin-right: 10px;" onclick="fade()">Fade</button>
   </div>
   <div id="App">
   </div>
@@ -25,11 +24,6 @@
   <script src="components.js" charset="utf-8"></script>
   <script src="game.js" charset="utf-8"></script>
   <script>
-  // Initiate the routing system.
-  window.addEventListener('hashchange', function() {
-    render(eval(location.hash.slice(1, location.hash.length)));
-    gameplay.view = location.hash.slice(1, location.hash.length);
-  }, false);
 
   //Initiate game
   (function(){
@@ -37,21 +31,24 @@
     render(starterScreen);
   })()
 
-  // Test bloat:
-  function test(){
-    let container = document.getElementById("App");
-    container.classList.add("fadeOut");
-    setTimeout(function(){
-      container.classList.add("none");
-    }, 600)
-  }
+  // Initiate the routing system.
+  window.addEventListener('hashchange', function() {
+    document.getElementById("App").classList.toggle("through");
+    const pageRender = new Promise((resolve, reject) =>
+      {
+        setTimeout(function(){
+          render(eval(location.hash.slice(1, location.hash.length)));
+          gameplay.view = location.hash.slice(1, location.hash.length);
+          resolve();
+        }, 600)
+      }
+    )
+    .then(() => document.getElementById("App").classList.toggle("through"));
+  }, false);
 
-  function fadeIn(){
-    let container = document.getElementById("App");
-    container.classList.remove("fadeOut");
-    container.classList.add("fadeIn");
-    container.classList.remove("none");
-  }
+
+
+
   </script>
 </body>
 </html>

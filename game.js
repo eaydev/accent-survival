@@ -37,31 +37,41 @@ let gameplay = {
       'students'];
     let category = categories[(Math.floor(Math.random() * categories.length))];
 
-    let quoteReq =  new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
-      xhr.open("GET", `http://quotes.rest/qod.json?category=${category}`, true);
-      xhr.onload = function(){
-        if (this.readyState == 4 && this.status == 200) {
-          resolve(xhr.responseText);
-        } else {
-          reject("Error in accessing API.");
-        }
-      }
-
-      xhr.onerror = function(){
-        reject("Could not reach server.")
-      }
-      xhr.send();
-    }) //End of Promise.
-
-    quoteReq.then(
-      (res) => {
-        return new Promise((resolve, reject) => {
-          resolve(newQuote = JSON.parse(res));
+    fetch(`http://quotes.rest/qod.json?category=${category}`)
+      .then((res)=>res.json())
+      .then((data)=> {
+        return new Promise((resolve, reject) =>{
+          gameplay.quote = '"' + (data['contents']['quotes'][0]['quote']) + '"'
+          resolve("Quote state successfully updated.");
         })
-      },
-      (err) => console.log(err)
-    ).then((newQuote)=> gameplay.quote = '"' + (newQuote['contents']['quotes'][0]['quote']) + '"');
+      })
+      .then(res=>console.log(res));
+
+    // let quoteReq =  new Promise((resolve, reject) => {
+    //   let xhr = new XMLHttpRequest();
+    //   xhr.open("GET", `http://quotes.rest/qod.json?category=${category}`, true);
+    //   xhr.onload = function(){
+    //     if (this.readyState == 4 && this.status == 200) {
+    //       resolve(xhr.responseText);
+    //     } else {
+    //       reject("Error in accessing API.");
+    //     }
+    //   }
+    //
+    //   xhr.onerror = function(){
+    //     reject("Could not reach server.")
+    //   }
+    //   xhr.send();
+    // }) //End of Promise.
+    //
+    // quoteReq.then(
+    //   (res) => {
+    //     return new Promise((resolve, reject) => {
+    //       resolve(newQuote = JSON.parse(res));
+    //     })
+    //   },
+    //   (err) => console.log(err)
+    // ).then((newQuote)=> gameplay.quote = '"' + (newQuote['contents']['quotes'][0]['quote']) + '"');
 
   },
   getAccent : function(){
