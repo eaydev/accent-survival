@@ -141,7 +141,8 @@ const countDownScreen = new Screen(
     Promise.all([counter, quoteCall])
     .then((responses)=>{
       //Response 1 is coming from the quote call.
-      responses[1].json()
+      const [countDownStatus, quoteCallStatus] = responses;
+      quoteCallStatus.json()
       .then((data) => {
         gameplay.quote = '"' + (data['contents']['quotes'][0]['quote']) + '"';
       })
