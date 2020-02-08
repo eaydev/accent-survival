@@ -8,7 +8,51 @@ body{
   height: 100vh;
   width: 100%;
 }
-
+.container-border{
+  transition: all 0.3s ease-in;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+.navigation{
+  width: 100%;
+  position: fixed;
+  top: 2.5%;
+  z-index: 2;
+}
+.hamburger-style{
+  background: rgba(240, 192, 32, 1);
+  border-color: rgba(174, 135, 4, 1);
+}
+.user-style{
+  background: rgba(100, 181, 255, 1);
+  border-color: white;
+}
+.hamburger-style:hover{
+  background: rgba(174, 135, 4, 1);
+}
+.user-style:hover{
+  background: black;
+  border-color: black;
+}
+.navigation-center{
+  margin: auto;
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hamburger-lines{
+  background-color: white;
+  width: 20px;
+  height: 3px;
+  margin: 3px;
+}
 #App{
   transition: all 0.6s linear;
   margin: auto;
@@ -202,6 +246,9 @@ body{
 }
 
 @media only screen and (max-width: 768px){
+  .navigation-center{
+    width: 95%;
+  }
   #App{
     width: 95%;
   }

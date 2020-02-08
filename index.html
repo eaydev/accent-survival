@@ -7,7 +7,7 @@
   <meta name="description" content="Accent Survival is a game where individuals fight to stay in the game
                                     by correctly imitating accents. Individuals have 30 seconds to read out
                                     a quote in a selected accent, their co-players must then guess correctly. Failure
-                                    to do so will result in the player, imitating the accent to lose a life.">
+                                    to do so will result in the player imitating the accent, to lose a life.">
 
   <title>Accent Survival | Free Online Accent Guessing Game</title>
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,900&display=swap" rel="stylesheet">
@@ -15,14 +15,31 @@
   <link rel='shortcut icon' type='image/x-icon' href='assets/accentgame.ico' />
 </head>
 <body>
+  <div class="navigation">
+    <div class="navigation-center">
+      <div id="hamburger" class="container-border hamburger-style">
+        <div class="div">
+          <div class="hamburger-lines"></div>
+          <div class="hamburger-lines"></div>
+          <div class="hamburger-lines"></div>
+        </div>
+      </div>
+      <div class="container-border user-style">
+        <img style="width: 20px; position: relative; filter: invert()" src="assets/user.svg" alt="">
+      </div>
+
+    </div>
+  </div>
+
   <div id="App">
+    Must enable JavaScript for this application to work.
   </div>
 
   <script src="components.js" charset="utf-8"></script>
   <script src="game.js" charset="utf-8"></script>
   <script>
 
-  //Initiate game
+  // Initiate game
   (function(){
     window.location.hash = "starterScreen";
     gameplay.view = location.hash.slice(1, location.hash.length);
@@ -46,6 +63,8 @@
       .then(() => document.getElementById("App").classList.toggle("through"));
     }
   }, false);
+
+
 
   </script>
 </body>
