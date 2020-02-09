@@ -8,8 +8,11 @@ body{
   height: 100vh;
   width: 100%;
 }
+
+/* ----NAVIGATION STYLES---- */
+
 .container-border{
-  transition: all 0.3s ease-in;
+  transition: all 0.2s ease-in;
   width: 40px;
   height: 40px;
   display: flex;
@@ -18,27 +21,21 @@ body{
   justify-content: center;
   border-radius: 50%;
   border: 2px solid black;
+  transform: scale(0.8);
 }
 .navigation{
   width: 100%;
   position: fixed;
   top: 2.5%;
-  z-index: 2;
+  z-index: 3;
 }
-.hamburger-style{
-  background: rgba(240, 192, 32, 1);
-  border-color: rgba(174, 135, 4, 1);
-}
-.user-style{
-  background: rgba(100, 181, 255, 1);
-  border-color: white;
-}
-.hamburger-style:hover{
-  background: rgba(174, 135, 4, 1);
-}
-.user-style:hover{
+.navbutton-style{
   background: black;
   border-color: black;
+}
+.navbutton-style:hover{
+  background: grey;
+  border-color: grey;
 }
 .navigation-center{
   margin: auto;
@@ -53,6 +50,26 @@ body{
   height: 3px;
   margin: 3px;
 }
+
+/* ----MENU STYLE---- */
+
+.gameMenu{
+  background: rgba(56, 65, 224, 1);
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.margin-below{
+  margin: 5%;
+}
+
+/* ----MAIN APP BODY STYLES----- */
+
 #App{
   transition: all 0.6s linear;
   margin: auto;
@@ -86,6 +103,9 @@ body{
 }
 .sub-text{
   letter-spacing: 0.035em;
+}
+.dec-none{
+  text-decoration: none;
 }
 #starter-form{
   width: 50%;

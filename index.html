@@ -15,22 +15,28 @@
   <link rel='shortcut icon' type='image/x-icon' href='assets/accentgame.ico' />
 </head>
 <body>
-  <div class="navigation">
+  <!-- Persisting navigation and data menus -->
+  <div class="navigation" id="navigation">
     <div class="navigation-center">
-      <div id="hamburger" class="container-border hamburger-style">
-        <div class="div">
+      <div id="hamburger" class="hamburger container-border navbutton-style">
+        <div class="hamburger">
           <div class="hamburger-lines"></div>
           <div class="hamburger-lines"></div>
           <div class="hamburger-lines"></div>
         </div>
       </div>
-      <div class="container-border user-style">
+      <div class="container-border navbutton-style">
         <img style="width: 20px; position: relative; filter: invert()" src="assets/user.svg" alt="">
       </div>
-
     </div>
   </div>
 
+  <div class="gameMenu none">
+    <h1 class="black starter-hero-header margin-below"><a class="dec-none text-white" href="">Rules</a></h1>
+    <h1 class="black starter-hero-header margin-below"><a class="dec-none text-white" href="">Exit</a></h1>
+  </div>
+
+  <!-- Main body of the app. The most dynamic portion -->
   <div id="App">
     Must enable JavaScript for this application to work.
   </div>
@@ -46,7 +52,7 @@
     render(starterScreen);
   })()
 
-  // Initiate the routing system.
+  // The routing system.
   window.addEventListener('hashchange', function() {
     gameplay.view = location.hash.slice(1, location.hash.length);
 
@@ -64,6 +70,17 @@
     }
   }, false);
 
+  //Code that we are fleshing out.
+  document.getElementById("navigation").addEventListener("click", function(e){
+    let target = e.target;
+    e.preventDefault();
+
+    // So excited to use destructuring here to pick out the DOM property.
+    if((target.classList.toString()).includes("hamburger")){
+      document.getElementsByClassName("gameMenu")[0].classList.toggle("none");
+    }
+
+  })
 
 
   </script>
