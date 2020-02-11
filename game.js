@@ -1,17 +1,17 @@
 // Gameplay object which will manage our data and associate functions with said data
 
 let gameplay = {
+  gameOverlay: false,
+  //Is the overlay displaying currently?
   view: "starterScreen",
   // State of guess
   guessed : false,
   //Quote retreived from API
   quote : "",
   //Player Stats Defined.
-  players: {"Player 1": {Lives: 1},
-            "Player 2": {Lives : 3}
-           },
+  players: {},
   //Current Player of the Game.
-  currentPlayer : "Player 1",
+  currentPlayer : "",
   // Method to initialise the player and player data
   createPlayers: function(arr){
     for (let i = 0; i < arr[0]; i++) {

@@ -18,50 +18,21 @@
   <!-- Persisting navigation and data menus -->
   <div class="navigation" id="navigation">
     <div class="navigation-center">
-      <div class="hamburger container-border navbutton-style">
+      <div class="hamburger hamburger-button container-border navbutton-style">
         <div class="hamburger">
           <div class="hamburger hamburger-lines"></div>
           <div class="hamburger hamburger-lines"></div>
           <div class="hamburger hamburger-lines"></div>
         </div>
       </div>
-      <div class="user container-border navbutton-style">
+      <div class="user user-button container-border navbutton-style none">
         <img class="user" style="width: 20px; position: relative; filter: invert()" src="assets/user.svg" alt="">
       </div>
     </div>
   </div>
 
-  <!-- //Menu screen// -->
-  <div class="gameMenu none">
-    <h1 class="black starter-hero-header margin-below zoom"><a class="dec-none text-white" href="">Rules</a></h1>
-    <h1 class="black starter-hero-header margin-below zoom"><a class="dec-none text-white" href="">Exit</a></h1>
-  </div>
-
-  <!-- //Life and players screen// -->
-
-  <div class="lifeScreen none">
-    <!-- //Current leading player is displayed here. -->
-    <div class="leader">
-      <div class="leader-player">
-        <h3 class="semi-bold text-white">Leader:</h3>
-        <h1 id="leader" class="black text-white starter-hero-header"></h1>
-      </div>
-      <div class="badge" style="transform: scale(1.4)">
-        <img class="badge-heart" src="assets/heart.svg" alt="">
-        <div class="text-white black badge-life" id="leaderLife"></div>
-      </div>
-  </div>
-
-  <!-- //List of players and associated lives -->
-  <div class="player-list" id="playerList">
-    <h3 class="underline black player-padding">Players</h3>
-    <!-- //Player list is inserted dynamically here. -->
-    <div class="player-box" id="playerBox">
-      <!-- //Individual row -->
-
-    </div>
-  </div>
-
+  <!-- //Overlay screens// -->
+  <div id="Overlay" class="overlay none">
 
   </div>
 
@@ -78,119 +49,106 @@
   (function(){
     window.location.hash = "starterScreen";
     gameplay.view = location.hash.slice(1, location.hash.length);
-    render(starterScreen);
+    render("App", starterScreen);
   })()
 
   // The routing system.
   window.addEventListener('hashchange', function() {
     gameplay.view = location.hash.slice(1, location.hash.length);
+    let hashComp = gameplay.view.split("/");
 
-    if(gameplay.view !== "starterScreen"){
-      document.getElementById("App").classList.toggle("through");
-      const pageRender = new Promise((resolve, reject) =>
-        {
-          setTimeout(function(){
-            render(eval(location.hash.slice(1, location.hash.length)));
-            resolve();
-          }, 600)
-        }
-      )
-      .then(() => document.getElementById("App").classList.toggle("through"));
+    if(hashComp.length === 1){
+      if(gameplay.view !== "starterScreen"){
+        document.getElementById("App").classList.toggle("through");
+        const pageRender = new Promise((resolve, reject) =>
+          {
+            setTimeout(function(){
+              render("App", eval(location.hash.slice(1, location.hash.length)));
+              resolve();
+            }, 600)
+          }
+        )
+        .then(() => document.getElementById("App").classList.toggle("through"));
+      }
+    } else if (hashComp.length === 2){
+      gameplay.gameOverlay = !gameplay.gameOverlay;
+      console.log("Boom.");
     }
   }, false);
 
-  //Code that we are fleshing out.
+
+
+  //Menu Controls.
   document.getElementById("navigation").addEventListener("click", function(e){
-    let gameMenu = document.getElementsByClassName("gameMenu")[0];
-    let lifeList = document.getElementsByClassName("lifeScreen")[0];
-    e.preventDefault();
-    //Converting the array from classList to a string to use includes.
+    // Hamburger hashchange.
+    let currentView = gameplay.view;
 
-    // Hamburger menu logic and animation
-    if(e.target.classList.contains("hamburger")){
-      //Initial state of the menu.
-      if(gameMenu.classList.contains("none")){
-        gameMenu.classList.toggle("none");
-      } else {
-      //COllapsing the menu.
-        gameMenu.classList.toggle("reverse-zoom");
-        setTimeout(function(){
-          gameMenu.classList.toggle("reverse-zoom");
-          gameMenu.classList.toggle("none");
-        },300)
+    //If the overlay is not present.
+    if(!gameplay.gameOverlay){
+      if(e.target.classList.contains("hamburger")){
+        currentView = currentView + "/hamburgerScreen";
+      } else if (e.target.classList.contains("user")){
+        currentView = currentView + "/lifeScreen";
       }
+    } else if (gameplay.gameOverlay) {
+      console.log("supposed to close.");
     }
-
-    // Hamburger menu logic and animation
-    if(e.target.classList.contains("user")){
-      //Initial state of the menu.
-      if(lifeList.classList.contains("none")){
-        lifeList.classList.toggle("none");
-      } else {
-      //COllapsing the menu.
-        lifeList.classList.toggle("reverse-zoom");
-        setTimeout(function(){
-          lifeList.classList.toggle("reverse-zoom");
-          lifeList.classList.toggle("none");
-        },300)
-      }
-    }
-
+    window.location.hash = currentView;
   })
 
   //Player Display
     // Getting the the top player.
-    let players = Object.keys(gameplay.players);
-    let lifeList = [];
-
-    players.forEach((p)=>{
-      lifeList.push(gameplay.players[p]["Lives"]);
-    })
-
-    function getHighest(arr){
-      let currentHighest = 0;
-      let highestIdx = 0;
-      for(let i = 0; i < arr.length; i++){
-        if (arr[i] > currentHighest){
-          currentHighest = arr[i];
-          highestIdx = i;
-        }
-        if(i === (arr.length - 1)){
-          return {
-            player: players[highestIdx],
-            life: currentHighest
-          };
-        }
-      }
-    }
-
-    let leadingPlayer = getHighest(lifeList);
-
-    function getLeader(p){
-      document.getElementById('leader').innerHTML = p.player;
-      document.getElementById('leaderLife').innerHTML = p.life;
-    }
-
-    getLeader(leadingPlayer);
-    //Creating rows from data.
-    players.forEach((p)=>{
-      let playerName = p;
-      let playerLives = gameplay.players[p]["Lives"];
-
-      let playerRowTemplate =
-      `<h4 class="semi-bold player-padding">${playerName}</h4>
-      <div class="badge">
-        <img class="badge-heart" src="assets/heart.svg" alt="">
-        <div class="text-white black badge-life">${playerLives}</div>
-      </div>`;
-
-      let playerRow = document.createElement("div");
-      playerRow.classList.add("player-row");
-      playerRow.innerHTML = playerRowTemplate;
-
-      return document.getElementById("playerBox").appendChild(playerRow);
-
-    })
+    // let players = Object.keys(gameplay.players);
+    // let lifeList = [];
+    //
+    // players.forEach((p)=>{
+    //   lifeList.push(gameplay.players[p]["Lives"]);
+    // })
+    //
+    // function getHighest(arr){
+    //   let currentHighest = 0;
+    //   let highestIdx = 0;
+    //   for(let i = 0; i < arr.length; i++){
+    //     if (arr[i] > currentHighest){
+    //       currentHighest = arr[i];
+    //       highestIdx = i;
+    //     }
+    //     if(i === (arr.length - 1)){
+    //       return {
+    //         player: players[highestIdx],
+    //         life: currentHighest
+    //       };
+    //     }
+    //   }
+    // }
+    //
+    // let leadingPlayer = getHighest(lifeList);
+    //
+    // function getLeader(p){
+    //   document.getElementById('leader').innerHTML = p.player;
+    //   document.getElementById('leaderLife').innerHTML = p.life;
+    // }
+    //
+    // getLeader(leadingPlayer);
+    // //Creating rows from data.
+    // players.forEach((p)=>{
+    //   let playerName = p;
+    //   let playerLives = gameplay.players[p]["Lives"];
+    //
+    //   let playerRowTemplate =
+    //   `<h4 class="semi-bold player-padding">${playerName}</h4>
+    //   <div class="badge">
+    //     <img class="badge-heart" src="assets/heart.svg" alt="">
+    //     <div class="text-white black badge-life">${playerLives}</div>
+    //   </div>`;
+    //
+    //   let playerRow = document.createElement("div");
+    //   playerRow.classList.add("player-row");
+    //   playerRow.innerHTML = playerRowTemplate;
+    //
+    //   return document.getElementById("playerBox").appendChild(playerRow);
+    //
+    // })
   </script>
 </body>
 </html>

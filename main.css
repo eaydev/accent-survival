@@ -40,9 +40,6 @@ body{
 .navigation-center{
   margin: auto;
   width: 40%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 .hamburger-lines{
   background-color: white;
@@ -50,10 +47,16 @@ body{
   height: 3px;
   margin: 3px;
 }
+.user-button{
+  float: right;
+}
+.hamburger-button{
+  float: left;
+}
 
-/* ----MENU STYLE---- */
+/* ----OVERLAY STYLE---- */
 
-.gameMenu{
+.overlay{
   background: rgba(56, 65, 224, 1);
   height: 100vh;
   width: 100%;
@@ -66,19 +69,6 @@ body{
 }
 .margin-below{
   margin: 5%;
-}
-
-
-/* ----LIFE STYLE badumtsss---- */
-.lifeScreen{
-  /* background: rgba(56, 65, 224, 1); */
-  background: #ffbe76;
-  height: 100vh;
-  width: 100%;
-  position: fixed;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
 }
 
 .leader{

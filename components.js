@@ -1,5 +1,5 @@
-function render(screen){
-    document.getElementById("App").innerHTML = screen.preRender;
+function render(dom, screen){
+    document.getElementById(dom).innerHTML = screen.preRender;
     screen.postRender();
 }
 
@@ -71,6 +71,9 @@ const starterScreen = new Screen (
         //This will also create our players and their data.
         //Refer to gameplay, which acts as the model
         gameplay.createPlayers(playerData);
+        if(gameplay.currentPlayer !== ""){
+          document.querySelector(".user-button").classList.toggle("none");
+        }
       } //Processing block for submit end.
     })
   }
@@ -167,7 +170,7 @@ const quoteScreen = new Screen(
         <div class="loader"></div>
       </h1>
     </div>
-    <span style="margin-top: 5px; z-index:50;font-size:0.9em; opacity: 0.7; transform: scale(0.8)"><img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com"/><a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com" style="color: #9fcc25; margin-left: 4px; vertical-align: middle;">theysaidso.com</a></span>
+    <span style="margin-top: 5px; font-size:0.9em; opacity: 0.7; transform: scale(0.8)"><img src="https://theysaidso.com/branding/theysaidso.png" height="20" width="20" alt="theysaidso.com"/><a href="https://theysaidso.com" title="Powered by quotes from theysaidso.com" style="color: #9fcc25; margin-left: 4px; vertical-align: middle;">theysaidso.com</a></span>
 
     <div class="accent-container text-white" style="margin-top: 20px;">
       <h2 style="text-decoration:underline" class="semi-bold">Accent</h2>
@@ -237,3 +240,40 @@ const quoteScreen = new Screen(
     let countDown = setInterval(timer, 1000);
   }
 );
+
+const hamburgerScreen = new Screen(
+  `<h1 class="black starter-hero-header margin-below zoom"><a class="dec-none text-white" href="">Rules</a></h1>
+  <h1 class="black starter-hero-header margin-below zoom"><a class="dec-none text-white" href="">Exit</a></h1>`
+  ,
+  function(){
+    console.log('Working on this.');
+  }
+)
+
+const lifeScreen = new Screen(
+  `<<!-- //Current leading player is displayed here. -->
+  <div class="leader">
+    <div class="leader-player">
+      <h3 class="semi-bold text-white">Leader:</h3>
+      <h1 id="leader" class="black text-white starter-hero-header"></h1>
+    </div>
+    <div class="badge" style="transform: scale(1.4)">
+      <img class="badge-heart" src="assets/heart.svg" alt="">
+      <div class="text-white black badge-life" id="leaderLife"></div>
+    </div>
+</div>
+
+<!-- //List of players and associated lives -->
+<div class="player-list" id="playerList">
+  <h3 class="underline black player-padding">Players</h3>
+  <!-- //Player list is inserted dynamically here. -->
+  <div class="player-box" id="playerBox">
+    <!-- //Individual row -->
+
+  </div>
+</div>`
+  ,
+  function(){
+    console.log('Working on this.');
+  }
+)
