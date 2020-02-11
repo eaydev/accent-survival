@@ -96,6 +96,8 @@ body{
   align-items: center;
 }
 .player-list{
+  margin: auto;
+  width: 60%;
   display: inherit;
   flex-direction: inherit;
   background: rgba(237, 237, 237, 1);
@@ -376,6 +378,9 @@ body{
   }
   #App{
     width: 95%;
+  }
+  .player-list{
+    width: 100%;
   }
   .brand-logo{
     width: 30vw;

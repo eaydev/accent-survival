@@ -39,7 +39,7 @@
 
   <!-- //Life and players screen// -->
 
-  <div class="lifeScreen">
+  <div class="lifeScreen none">
     <!-- //Current leading player is displayed here. -->
     <div class="leader">
       <div class="leader-player">
@@ -102,6 +102,7 @@
   //Code that we are fleshing out.
   document.getElementById("navigation").addEventListener("click", function(e){
     let gameMenu = document.getElementsByClassName("gameMenu")[0];
+    let lifeList = document.getElementsByClassName("lifeScreen")[0];
     e.preventDefault();
     //Converting the array from classList to a string to use includes.
 
@@ -119,6 +120,22 @@
         },300)
       }
     }
+
+    // Hamburger menu logic and animation
+    if(e.target.classList.contains("user")){
+      //Initial state of the menu.
+      if(lifeList.classList.contains("none")){
+        lifeList.classList.toggle("none");
+      } else {
+      //COllapsing the menu.
+        lifeList.classList.toggle("reverse-zoom");
+        setTimeout(function(){
+          lifeList.classList.toggle("reverse-zoom");
+          lifeList.classList.toggle("none");
+        },300)
+      }
+    }
+
   })
 
   //Player Display
