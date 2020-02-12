@@ -48,17 +48,25 @@
   // Initiate game
   (function(){
     window.location.hash = "starterScreen";
-    gameplay.view = location.hash.slice(1, location.hash.length);
     render("App", starterScreen);
   })()
 
   // The routing system.
   window.addEventListener('hashchange', function() {
-    gameplay.view = location.hash.slice(1, location.hash.length);
-    let hashComp = gameplay.view.split("/");
+    let hashComp = location.hash.slice(1, location.hash.length).split("/");
 
+    // Length 1 for game screens.
     if(hashComp.length === 1){
-      if(gameplay.view !== "starterScreen"){
+      //REMOVING OVERLAY
+      if(hashComp[0] === gameplay.view){
+        console.log("reaching.");
+        document.getElementById("Overlay").classList.toggle("none");
+        gameplay.gameOverlay = !gameplay.gameOverlay;
+        document.getElementById("Overlay").innerHTML =  "";
+      }
+      //Rendering game screens as game progresses past starterScreen
+      //This is done for the animations.
+      else if(hashComp[0] !== "starterScreen"){
         document.getElementById("App").classList.toggle("through");
         const pageRender = new Promise((resolve, reject) =>
           {
@@ -68,11 +76,19 @@
             }, 600)
           }
         )
-        .then(() => document.getElementById("App").classList.toggle("through"));
+        .then(() => {
+          document.getElementById("App").classList.toggle("through");
+          gameplay.view = hashComp[0];
+        });
+      } //Length 2 for overlays.
+      else { //This is just for the startScreen.
+        render("App", eval(location.hash.slice(1, location.hash.length)));
+        gameplay.view = hashComp[0];
       }
     } else if (hashComp.length === 2){
-      gameplay.gameOverlay = !gameplay.gameOverlay;
-      console.log("Boom.");
+        render("Overlay", eval(hashComp[1]));
+        document.getElementById("Overlay").classList.toggle("none");
+        gameplay.gameOverlay = !gameplay.gameOverlay;
     }
   }, false);
 
@@ -86,69 +102,17 @@
     //If the overlay is not present.
     if(!gameplay.gameOverlay){
       if(e.target.classList.contains("hamburger")){
-        currentView = currentView + "/hamburgerScreen";
+        window.location.hash = currentView + "/hamburgerScreen";
       } else if (e.target.classList.contains("user")){
-        currentView = currentView + "/lifeScreen";
+        window.location.hash = currentView + "/lifeScreen";
       }
     } else if (gameplay.gameOverlay) {
-      console.log("supposed to close.");
+      //Close.
+      if(e.target.classList.contains("hamburger") || e.target.classList.contains("user")){
+        window.location.hash = currentView.split("/")[0];
+      }
     }
-    window.location.hash = currentView;
   })
-
-  //Player Display
-    // Getting the the top player.
-    // let players = Object.keys(gameplay.players);
-    // let lifeList = [];
-    //
-    // players.forEach((p)=>{
-    //   lifeList.push(gameplay.players[p]["Lives"]);
-    // })
-    //
-    // function getHighest(arr){
-    //   let currentHighest = 0;
-    //   let highestIdx = 0;
-    //   for(let i = 0; i < arr.length; i++){
-    //     if (arr[i] > currentHighest){
-    //       currentHighest = arr[i];
-    //       highestIdx = i;
-    //     }
-    //     if(i === (arr.length - 1)){
-    //       return {
-    //         player: players[highestIdx],
-    //         life: currentHighest
-    //       };
-    //     }
-    //   }
-    // }
-    //
-    // let leadingPlayer = getHighest(lifeList);
-    //
-    // function getLeader(p){
-    //   document.getElementById('leader').innerHTML = p.player;
-    //   document.getElementById('leaderLife').innerHTML = p.life;
-    // }
-    //
-    // getLeader(leadingPlayer);
-    // //Creating rows from data.
-    // players.forEach((p)=>{
-    //   let playerName = p;
-    //   let playerLives = gameplay.players[p]["Lives"];
-    //
-    //   let playerRowTemplate =
-    //   `<h4 class="semi-bold player-padding">${playerName}</h4>
-    //   <div class="badge">
-    //     <img class="badge-heart" src="assets/heart.svg" alt="">
-    //     <div class="text-white black badge-life">${playerLives}</div>
-    //   </div>`;
-    //
-    //   let playerRow = document.createElement("div");
-    //   playerRow.classList.add("player-row");
-    //   playerRow.innerHTML = playerRowTemplate;
-    //
-    //   return document.getElementById("playerBox").appendChild(playerRow);
-    //
-    // })
   </script>
 </body>
 </html>

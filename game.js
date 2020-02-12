@@ -3,7 +3,7 @@
 let gameplay = {
   gameOverlay: false,
   //Is the overlay displaying currently?
-  view: "starterScreen",
+  view: "",
   // State of guess
   guessed : false,
   //Quote retreived from API

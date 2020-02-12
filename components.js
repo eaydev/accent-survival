@@ -251,7 +251,7 @@ const hamburgerScreen = new Screen(
 )
 
 const lifeScreen = new Screen(
-  `<<!-- //Current leading player is displayed here. -->
+  `<!-- //Current leading player is displayed here. -->
   <div class="leader">
     <div class="leader-player">
       <h3 class="semi-bold text-white">Leader:</h3>
@@ -274,6 +274,58 @@ const lifeScreen = new Screen(
 </div>`
   ,
   function(){
-    console.log('Working on this.');
+    // Player Display
+    //   Getting the the top player.
+      let players = Object.keys(gameplay.players);
+      let lifeList = [];
+
+      players.forEach((p)=>{
+        lifeList.push(gameplay.players[p]["Lives"]);
+      })
+
+      function getHighest(arr){
+        let currentHighest = 0;
+        let highestIdx = 0;
+        for(let i = 0; i < arr.length; i++){
+          if (arr[i] > currentHighest){
+            currentHighest = arr[i];
+            highestIdx = i;
+          }
+          if(i === (arr.length - 1)){
+            return {
+              player: players[highestIdx],
+              life: currentHighest
+            };
+          }
+        }
+      }
+
+      let leadingPlayer = getHighest(lifeList);
+
+      function getLeader(p){
+        document.getElementById('leader').innerHTML = p.player;
+        document.getElementById('leaderLife').innerHTML = p.life;
+      }
+
+      getLeader(leadingPlayer);
+      //Creating rows from data.
+      players.forEach((p)=>{
+        let playerName = p;
+        let playerLives = gameplay.players[p]["Lives"];
+
+        let playerRowTemplate =
+        `<h4 class="semi-bold player-padding">${playerName}</h4>
+        <div class="badge">
+          <img class="badge-heart" src="assets/heart.svg" alt="">
+          <div class="text-white black badge-life">${playerLives}</div>
+        </div>`;
+
+        let playerRow = document.createElement("div");
+        playerRow.classList.add("player-row");
+        playerRow.innerHTML = playerRowTemplate;
+
+        return document.getElementById("playerBox").appendChild(playerRow);
+
+      })
   }
 )
