@@ -1,7 +1,8 @@
 // Gameplay object which will manage our data and associate functions with said data
 
 let gameplay = {
-  gameOverlay: false,
+  rulesVisible: false,
+  gameOverlay: "",
   //Is the overlay displaying currently?
   view: "",
   // State of guess

@@ -32,9 +32,7 @@
   </div>
 
   <!-- //Overlay screens// -->
-  <div id="Overlay" class="overlay none">
-
-  </div>
+  <!-- <div id="Overlay" class="overlay none"></div> -->
 
   <!-- Main body of the app. The most dynamic portion -->
   <div id="App">
@@ -59,10 +57,9 @@
     if(hashComp.length === 1){
       //REMOVING OVERLAY
       if(hashComp[0] === gameplay.view){
-        console.log("reaching.");
         document.getElementById("Overlay").classList.toggle("none");
-        gameplay.gameOverlay = !gameplay.gameOverlay;
-        document.getElementById("Overlay").innerHTML =  "";
+        gameplay.gameOverlay = "";
+        document.body.removeChild(document.body.childNodes[0]);
       }
       //Rendering game screens as game progresses past starterScreen
       //This is done for the animations.
@@ -85,10 +82,11 @@
         render("App", eval(location.hash.slice(1, location.hash.length)));
         gameplay.view = hashComp[0];
       }
-    } else if (hashComp.length === 2){
+    } else if (hashComp.length === 2){ //Rendering the menus.
+        document.body.insertAdjacentHTML('afterbegin', `<div id="Overlay" class="overlay none"></div>`)
         render("Overlay", eval(hashComp[1]));
         document.getElementById("Overlay").classList.toggle("none");
-        gameplay.gameOverlay = !gameplay.gameOverlay;
+        gameplay.gameOverlay = hashComp[1];
     }
   }, false);
 
@@ -99,19 +97,23 @@
     // Hamburger hashchange.
     let currentView = gameplay.view;
 
-    //If the overlay is not present.
-    if(!gameplay.gameOverlay){
-      if(e.target.classList.contains("hamburger")){
-        window.location.hash = currentView + "/hamburgerScreen";
-      } else if (e.target.classList.contains("user")){
-        window.location.hash = currentView + "/lifeScreen";
-      }
-    } else if (gameplay.gameOverlay) {
-      //Close.
-      if(e.target.classList.contains("hamburger") || e.target.classList.contains("user")){
-        window.location.hash = currentView.split("/")[0];
+    // The rules render below the menu and this stops it from being active when the modal is active.
+    if(!gameplay.rulesVisible){
+      //If the overlay is not present.
+      if(gameplay.gameOverlay === ""){
+        if(e.target.classList.contains("hamburger")){
+          window.location.hash = currentView + "/hamburgerScreen";
+        } else if (e.target.classList.contains("user")){
+          window.location.hash = currentView + "/lifeScreen";
+        }
+      } else if (gameplay.gameOverlay !== "") {
+        //Close.
+        if(e.target.classList.contains("hamburger") || e.target.classList.contains("user")){
+          window.location.hash = currentView.split("/")[0];
+        }
       }
     }
+
   })
   </script>
 </body>

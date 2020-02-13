@@ -242,11 +242,45 @@ const quoteScreen = new Screen(
 );
 
 const hamburgerScreen = new Screen(
-  `<h1 class="black starter-hero-header margin-below zoom"><a class="dec-none text-white" href="">Rules</a></h1>
-  <h1 class="black starter-hero-header margin-below zoom"><a class="dec-none text-white" href="">Exit</a></h1>`
+  `<h1 class="black starter-hero-header margin-below text-white zoom">Rules</h1>
+  <h1 class="black starter-hero-header margin-below text-white zoom">Quit</h1>`
   ,
   function(){
-    console.log('Working on this.');
+    document.getElementById("Overlay").addEventListener("click", function(e){
+      let overlayer = document.getElementById("Overlay");
+      if (e.target.tagName === "H1") {
+        //Check for the rules tag.
+        if (e.target.innerHTML === "Rules") {
+          let rulesModal =
+          `<div class="rules">
+            <h1 class="rules-exit">&#10006;</h1>
+            <div class="rules-box">
+              <h2 style="text-decoration: underline; padding-bottom: 20px;">Game Rules.</h2>
+              <ul style="margin-left: 20px;">
+                <li>This game is played as a 2 or more, players game.</li>
+                <li>Players choose the amount of lives each person has at the start of the game.</li>
+                <li>Players have 30 seconds to read out a given quote in a given accent.</li>
+                <li>The other players must then attempt to guess what accent the current player is speaking in.</li>
+                <li>If the other players are not able to guess correctly, the current player loses a life.</li>
+                <li>The accent master survives!</li>
+              </ul>
+            </div>
+          </div>`;
+
+          gameplay.rulesVisible = !gameplay.rulesVisible;
+          overlayer.insertAdjacentHTML('beforeend', rulesModal);
+        }
+      }
+
+      //When menu is open.
+      if (gameplay.rulesVisible) {
+        if (e.target.classList.contains("overlay") || e.target.classList.contains("rules-exit")) {
+          overlayer.removeChild(overlayer.childNodes[overlayer.childNodes.length - 1]);
+          gameplay.rulesVisible = !gameplay.rulesVisible;
+        }
+      }
+
+    })
   }
 )
 

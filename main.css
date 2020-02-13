@@ -228,6 +228,28 @@ body{
   padding-right: 8px;
 }
 
+/* STYLING FOR RULES PAGE */
+.rules{
+  position: fixed;
+  z-index: 20;
+  background: #22a6b3;
+  width: 40%;
+  padding-bottom: 40px;
+}
+.rules-exit{
+  margin: 10px;
+  width: 25px;
+}
+.rules-box{
+  margin: auto;
+  background: white;
+  width: 80%;
+  padding: 20px;
+  word-wrap: break-word;
+}
+.rules-box li{
+  margin-top: 10px;
+}
 /* Animation for menu entry */
 .zoom{
   animation: zoom linear 300ms;
@@ -367,6 +389,9 @@ body{
     width: 95%;
   }
   #App{
+    width: 95%;
+  }
+  .rules{
     width: 95%;
   }
   .player-list{
