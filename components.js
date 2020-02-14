@@ -242,8 +242,12 @@ const quoteScreen = new Screen(
 );
 
 const hamburgerScreen = new Screen(
-  `<h1 class="black starter-hero-header margin-below text-white zoom">Rules</h1>
-  <h1 class="black starter-hero-header margin-below text-white zoom">Quit</h1>`
+  `
+  <h1 class="black starter-hero-header margin-below text-white zoom">Resume Game</h1>
+  <h1 class="black starter-hero-header margin-below text-white zoom">Reload Game</h1>
+  <h1 class="black starter-hero-header margin-below text-white zoom">Rules</h1>
+
+  `
   ,
   function(){
     document.getElementById("Overlay").addEventListener("click", function(e){
@@ -257,7 +261,7 @@ const hamburgerScreen = new Screen(
             <div class="rules-box">
               <h2 style="text-decoration: underline; padding-bottom: 20px;">Game Rules.</h2>
               <ul style="margin-left: 20px;">
-                <li>This game is played as a 2 or more, players game.</li>
+                <li>This game is played with 2 or more players.</li>
                 <li>Players choose the amount of lives each person has at the start of the game.</li>
                 <li>Players have 30 seconds to read out a given quote in a given accent.</li>
                 <li>The other players must then attempt to guess what accent the current player is speaking in.</li>
@@ -269,16 +273,32 @@ const hamburgerScreen = new Screen(
 
           gameplay.rulesVisible = !gameplay.rulesVisible;
           overlayer.insertAdjacentHTML('beforeend', rulesModal);
+        } else if (e.target.innerHTML === "Resume Game"){
+          window.location.hash = gameplay.view.split("/")[0];
+        } else if (e.target.innerHTML === "Reload Game"){
+          let closeModal =
+          `<div class="reload-game">
+              <h1>Quit game?</h1>
+              <button class="reload-button yes-button">Yes</button>
+              <button class="reload-button close-button">No</button>
+          </div>`;
+
+          gameplay.rulesVisible = !gameplay.rulesVisible;
+          overlayer.insertAdjacentHTML('beforeend', closeModal);
         }
       }
 
       //When menu is open.
       if (gameplay.rulesVisible) {
-        if (e.target.classList.contains("overlay") || e.target.classList.contains("rules-exit")) {
+        if (e.target.classList.contains("overlay") || e.target.classList.contains("rules-exit") || e.target.classList.contains("close-button")) {
           overlayer.removeChild(overlayer.childNodes[overlayer.childNodes.length - 1]);
           gameplay.rulesVisible = !gameplay.rulesVisible;
         }
+        else if (e.target.classList.contains("yes-button")){
+          window.location.hash = location.reload();
+        }
       }
+
 
     })
   }

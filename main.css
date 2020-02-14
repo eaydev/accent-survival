@@ -250,6 +250,32 @@ body{
 .rules-box li{
   margin-top: 10px;
 }
+
+.reload-game{
+  position: fixed;
+  z-index: 20;
+  background: #f6e58d;
+  width: 40%;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.reload-button{
+  margin: 5px;
+  padding: 10px;
+  border-style: none;
+  background: white;
+  border-radius: 10px;
+}
+.close-button{
+  background: #eb4d4b;
+}
+.yes-button{
+  background: #6ab04c;
+}
+
+
 /* Animation for menu entry */
 .zoom{
   animation: zoom linear 300ms;
@@ -393,6 +419,9 @@ body{
   }
   .rules{
     width: 95%;
+  }
+  .reload-game{
+    width: 90%;
   }
   .player-list{
     width: 100%;
