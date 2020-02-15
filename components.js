@@ -44,6 +44,7 @@ const starterScreen = new Screen (
     <div containerFor="numberOfLives" class="form-line button button-red">
       <label for="numberOfLives">Lives: </label>
       <select name="numberOfLives" id="numberOfLives" class="border-none">
+        <option value="1">1</option>
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
@@ -96,6 +97,7 @@ const readyScreen = new Screen(
 
 const victorScreen = new Screen(
   `<div class="intermediary-header">
+    <img src="assets/crown.svg" style="width: 40%; margin-bottom: 40px;" alt="crown icon"></img>
     <h1 id="accent" class="black starter-hero-header" style="color: #F0C020">VICTOR</h1>
     <h1 id="playerDisplay" class="starter-hero-header text-white black" style="padding-bottom: 20px; letter-spacing: 0.035em;">
     </h1>
@@ -192,21 +194,28 @@ const quoteScreen = new Screen(
     async function playerPass(){
         await clearInterval(countDown);
         time = 0;
+
         document.getElementById("timer").innerHTML = await time;
-        gameplay.lifeCalc();
-        if (gameplay.guessed) {
-          gameplay.guessed = !gameplay.guessed;
-        }
-        gameplay.playerOut();
-        //Check if Victor!
-        if (Object.keys(gameplay.players).length === 1) {
-          gameplay.currentPlayer = Object.keys(gameplay.players)[0];
-          return window.location.hash = "victorScreen";
-          } else {
-          gameplay.playerSwitch();
-          return window.location.hash = "readyScreen";
-        }
+        //LIFE CALULATION OCCURS HERE.
+        animateGuess().then((res)=>{
+          gameplay.lifeCalc();
+          if (gameplay.guessed) {
+            gameplay.guessed = !gameplay.guessed;
+          }
+          gameplay.playerOut();
+
+          //Check if Victor!
+          if (Object.keys(gameplay.players).length === 1) {
+            gameplay.currentPlayer = Object.keys(gameplay.players)[0];
+            return window.location.hash = "victorScreen";
+            } else {
+            gameplay.playerSwitch();
+            return window.location.hash = "readyScreen";
+          }
+        })
     }
+
+
       //Pasting Values into DOM
     document.getElementById("playerID").innerHTML = gameplay.currentPlayer;
       //Controlling style for quote card regarding character length.
@@ -220,24 +229,57 @@ const quoteScreen = new Screen(
     document.getElementById("accent").innerHTML = gameplay.getAccent();
       // Adding Functionality to Guessed button
     document.getElementById("guessButton").addEventListener('click', function(){
+      //PLAYER GUESSED ANIMATION HERE.
       gameplay.guessed = !gameplay.guessed;
       playerPass();
     });
 
 
-      //Timer module
+    //Timer module
     let time = 31;
-
     function timer(){
       if (time === 0) {
+        //PLAYER FAILED ANIMATION HERE.
         playerPass();
       }
       time--;
       document.getElementById("timer").innerHTML = time;
     }
 
+    //Starting the timer.
     timer();
     let countDown = setInterval(timer, 1000);
+
+    function animateGuess(){
+      //Decide whether there was a success.
+      let animClass;
+      if (gameplay.guessed) {
+        animClass = "success";
+      } else {
+        animClass = "alert";
+      }
+
+      //Use Promise to control animation.
+      return new Promise((resolve, reject) => {
+          document.body.classList.toggle(`${animClass}-gradient`);
+          if(!gameplay.guessed){
+            document.getElementById("App").classList.toggle("shake");
+          }
+          setTimeout(function(){
+            resolve();
+          }, 300)
+
+      }).then((res) =>{
+        return new Promise((resolve, reject)=>{
+          document.body.classList.toggle(`${animClass}-gradient`);
+          if(!gameplay.guessed){
+            document.getElementById("App").classList.toggle("shake");
+          }
+          resolve();
+        })
+
+      })
+    }
   }
 );
 
