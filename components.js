@@ -44,7 +44,6 @@ const starterScreen = new Screen (
     <div containerFor="numberOfLives" class="form-line button button-red">
       <label for="numberOfLives">Lives: </label>
       <select name="numberOfLives" id="numberOfLives" class="border-none">
-        <option value="1">1</option>
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
