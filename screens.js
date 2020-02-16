@@ -1,15 +1,15 @@
-function render(dom, screen){
-    document.getElementById(dom).innerHTML = screen.preRender;
-    screen.postRender();
-}
-
+//Screens are located here.
+//Screens are defined as different view-states that allow the user to interact with the game data in game.js
 class Screen {
   constructor(preRender, postRender){
+    //Pre-render composes the markup of the specific view.
     this.preRender = preRender;
+    //The associated logic of the view. This interacts with the game data in game.js
     this.postRender = postRender;
   }
 }
 
+//Initial Screen.
 const starterScreen = new Screen (
   `<!-- Start of hero -->
 
